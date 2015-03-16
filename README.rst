@@ -52,4 +52,4 @@ Make sure you can convert a notebook with
     mime_map = text/x-ipynb:ipynb
     max_preview_size = 26214400
 
-
+.. image:: https://raw.githubusercontent.com/rainwoodman/ipynb-trac/master/screenshot.png
