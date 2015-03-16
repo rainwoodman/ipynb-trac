@@ -6,44 +6,50 @@ Previewing IPython Notebook attachments on Trac.
 Installation
 ------------
 
-  1. make sure ipython[notebook] is installed.
+1. make sure ipython[notebook] is installed.
 
-    .. code::
+.. code::
 
-        # as root 
-        easy_install ipython[notebook]
+    # as root 
+    easy_install ipython[notebook]
 
-        #or as the user running trac
-        easy_install --user ipython[notebook]
-        
-    Also, nbconvert (the notebook to html converter) depends on pandoc;
-    pandoc is written in Haskell. Thus depending on the level of voodoo
-    you have, install it with 'apt-get' or 'yum'
+    #or as the user running trac
+    easy_install --user ipython[notebook]
+    
+Also, nbconvert (the notebook to html converter) depends on pandoc;
+pandoc is written in Haskell. Thus depending on the level of voodoo
+you have, install it with 'apt-get' or 'yum'
 
-    .. code::
+.. code::
 
-        su -c 'yum install pandoc'
+    su -c 'yum install pandoc'
 
-    2. copy ipynb.py to your trac's plugin/ directory. 
-       Admin shall be able to see IPythonNotebookRenderer in 
-       admin/general/plugin, under the catalogue 'ipynb'. 
-       Enable it.
+Make sure you can convert a notebook with
 
-    .. code::
+.. code::
+    
+    ipython nbconvert --to html --template basic MyNotebook.ipynb
 
-        cp ipynb.py mytracdir/plugin
+2. copy ipynb.py to your trac's plugin/ directory. 
+   Admin shall be able to see IPythonNotebookRenderer in 
+   admin/general/plugin, under the catalogue 'ipynb'. 
+   Enable it.
 
-    2. edit conf/trac.ini. 
-       Increase the max_size and also set up the mime type of .ipynb files.
+.. code::
 
-    .. code:: ini
+    cp ipynb.py mytracdir/plugin
 
-        [attachment]
-        max_size = 26214400
-        max_zip_size = 209715200
+2. edit conf/trac.ini. 
+   Increase the max_size and also set up the mime type of .ipynb files.
 
-        [mimeviewer]
-        mime_map = text/x-ipynb:ipynb
-        max_preview_size = 26214400
+.. code:: ini
+
+    [attachment]
+    max_size = 26214400
+    max_zip_size = 209715200
+
+    [mimeviewer]
+    mime_map = text/x-ipynb:ipynb
+    max_preview_size = 26214400
 
 
