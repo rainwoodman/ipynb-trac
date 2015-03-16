@@ -39,8 +39,8 @@ Make sure you can convert a notebook with
 
     cp ipynb.py mytracdir/plugin
 
-2. edit conf/trac.ini. 
-   Increase the max_size and also set up the mime type of .ipynb files.
+3. edit conf/trac.ini. 
+   Increase the max_size and also add the mime type of .ipynb files.
 
 .. code:: ini
 
