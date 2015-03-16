@@ -1,24 +1,16 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2004-2009 Edgewall Software
-# Copyright (C) 2004 Oliver Rutherfurd
-# All rights reserved.
+# This software is licensed as some open-source license; which is 
+# yet to be decided.
 #
-# This software is licensed as described in the file COPYING, which
-# you should have received as part of this distribution. The terms
-# are also available at http://trac.edgewall.org/wiki/TracLicense.
+# Author: Yu Feng <yfeng1@berkeley.edu>
 #
-# This software consists of voluntary contributions made by many
-# individuals. For the exact contribution history, see the revision
-# history and logs, available at http://trac.edgewall.org/log/.
+# Trac support for IPython Notebook attachments
 #
-# Author: Yu Feng yfeng1@berekley.edu
+# Loosely based on the ReST support by 
+#     Daniel Lundin, Oliver Rutherfurd, and Nuutti Kotivuori.
+#    (@trac/mimeview/rst.py)
 #
-# Trac support for reStructured Text, including a custom 'trac' directive
-#
-# 'trac' directive code by Oliver Rutherfurd, overhauled by cboos.
-#
-# Inserts `reference` nodes for TracLinks into the document tree.
 
 __docformat__ = 'IPythonNotebook'
 
@@ -45,7 +37,6 @@ class IPythonNotebookRenderer(Component):
 
     def __init__(self):
         self.can_render = True
-
     # ISystemInfoProvider methods
 
     def get_system_info(self):
@@ -60,6 +51,9 @@ class IPythonNotebookRenderer(Component):
         return 0
 
     def render(self, context, mimetype, content, filename=None, rev=None):
-        node = nbformat.reader.read(content)
-        result = nbconvert.export_html(node, config=dict(template='basic'))
-        return """%s""" % str(result[0])
+        try:
+            node = nbformat.reader.read(content)
+            result = nbconvert.export_html(node, config=dict(template='basic'))
+            return """%s""" % str(result[0])
+        except Exception as e:
+            return """<h2>Conversion failed</h2><pre>%s</pre>""" % str(e)
